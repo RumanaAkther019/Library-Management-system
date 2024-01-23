@@ -6,8 +6,6 @@ struct library
 {
 char book_name[200];
 char authors_name [50];
-float price;
-int page;
 };
 
 
@@ -33,10 +31,7 @@ int main()
             scanf("%s",lib[i].book_name);
             printf ("Enter author name \n: ");
            scanf ("%s",lib[i].authors_name);
-           printf ("Enter  the price of books \n: ");
-         scanf ("%f",&lib[i].price);
-          printf ("Enter pages \n: ");
-          scanf ("%d",&lib[i].page);
+
 
 
 
@@ -44,33 +39,32 @@ int main()
 
                 if (count==0)
                 {
-                    printf(" \nThere are no books stored ");
+                    printf(" There are no books stored\n ");
                 }
                 else
                 {
 
-                    printf(" \nYou can view the list of books ");
-                    printf(" \nThe list of books are: ");
+                    printf(" You can view the list of books \n");
+                    printf(" The list of books are\n: ");
                     for(i=0; i < count; i++)
                     {
-                        printf("%s \nThe name of the book is: ", lib[i].book_name);
-                        printf("%s \nThe name of the author is:  ", lib[i].authors_name);
-                        printf(" %d\nThe number of pages are:  ", lib[i].page);
-                        printf(" %f\nThe price of the book is:  ", lib[i].price);
+                        printf("%s The name of the book is\n: ", lib[i].book_name);
+                        printf("%s The name of the author is\n:  ", lib[i].authors_name);
+
                     }
                       }
                 break;
 
             case 3:
 
-                 printf("%d \nTotal number of books in the library are: ", count);
+                 printf("%d Total number of books in the library are \n: ", count);
                 break;
 
             case 4:
                 exit(0);
                  default:
 
-                printf(" \nInvalid number entered");
+                printf(" Invalid number entered\n");
         }
 
     }
