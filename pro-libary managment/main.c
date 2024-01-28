@@ -5,21 +5,43 @@
 struct library
 {
 char book_name[200];
+char title[100];
 char authors_name [50];
+int quantity;
+struct Book *next;
+
 };
+ Book*create_book (char authors_name, char title,int quantity )
+ {
+     AddBook *new_book = (Book *) malloc(sizeof(Book));
+    new_book->quantity = quantity;
+    new_book->next = NULL;
+    return new_book;
+ }
+ void add_book(Book *head, char title, char authors_name, int quantity)
+ {
+    Book *new_book = create_book(title, author, quantity);
+    new_book->next = *head;
+    head = new_book;
+}
+ void display_books(Book *head) {
+    printf("List of Books:\n");
+    Book *current = head;
+    while (current != NULL) {
+        printf(" %s title: \n" , current->tille);
+        printf("%s authors_name:\n ",current->authors_name);
+        printf("%d quantity:\n",current->quantity);
+        current = current->next;
+    }
+}
 
 
-int main()
+void main(Book *head) {
+    int j;
+
+    while(1)
 {
-    struct library lib[100];
-    char book_name[100];
-    int i, j, count;
-    i = 0;
-    j = 0;
-    count = 0;
-    while(j!=6)
-    {
-
+    printf ("-------Libary Managment System--------\n");
      printf(" 1. Add Book details\n 2. Display the list of books \n 3. Display the total no. of books\n 4. Exit\n  ");
      printf(" Enter the number of your choice:  ");
     scanf(" %d", &j);
