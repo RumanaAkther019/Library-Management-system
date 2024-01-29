@@ -11,7 +11,7 @@ int quantity;
 struct Book *next;
 
 };
- Book*create_book (char authors_name, char title,int quantity )
+ Book*new_book(char authors_name, char title,int quantity )
  {
      AddBook *new_book = (Book *) malloc(sizeof(Book));
     new_book->quantity = quantity;
@@ -36,10 +36,10 @@ struct Book *next;
 }
 
 
-void main(Book *head) {
-    int j;
+int main(Book *head) {
+    int j=0;
 
-    while(1)
+    while(6)
 {
     printf ("-------Libary Managment System--------\n");
      printf(" 1. Add Book details\n 2. Display the list of books \n 3. Display the total no. of books\n 4. Exit\n  ");
