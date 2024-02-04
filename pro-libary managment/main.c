@@ -2,83 +2,105 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-struct library
-{
-char book_name[200];
-char title[100];
-char authors_name [50];
-int quantity;
-struct library *next;
 
-};
-struct library*head;
- struct library *create_book(char title[], char authors_name[], int quantity)
-
- {
-    struct library *new_book = (struct library *)malloc(sizeof(struct library));
+ struct library {
+    int id;
+    char title[100];
+    char author[100];
+    int quantity;
+    struct library*next;
+} ;
+struct library* head;
+struct library* create_book( char *title,  char *author, int quantity) {
+    struct library *new_book = (struct library *) malloc(sizeof(struct library));
+    strcpy(new_book->title, title);
+    strcpy(new_book->author, author);
     new_book->quantity = quantity;
     new_book->next = NULL;
     return new_book;
- }
- void add_book(struct library **head, char title[], char authors_name[], int quantity)
-{
-    struct library *new_book = create_book(title, authors_name, quantity);
+}
+
+
+void add_book(struct library**head,  char *title,  char *author, int quantity) {
+    struct library *new_book = create_book( title, author, quantity);
     new_book->next = *head;
     *head = new_book;
 }
- void display_books(struct library *head,char title[],char authors_name[]) {
+
+
+void display_books(struct library*head) {
     printf("List of Books:\n");
-    struct library*current = head;
-    while (current != NULL)
-    {
-        printf("Title: %s\n", current->book_name);
-        printf("Author: %s\n", current->authors_name);
-        printf("Quantity: %d\n", current->quantity);
+    struct library *current = head;
+    while (current != NULL) {
+        printf("Title: %s | Author: %s | Quantity: %d\n", current->title, current->author, current->quantity);
         current = current->next;
     }
 }
 
-int main( ) {
-   struct library *head = NULL;
-    int j;
 
-    while (1)
-    {
-        printf("-------Library Management System--------\n");
-        printf("1. Add Book details\n2. Display the list of books\n3. Display the total no. of books\n4. Exit\n");
-        printf("Enter the number of your choice: ");
-        scanf("%d", &j);
+struct library* search_book_by_title(struct library*head,  char *title) {
+    struct library *current = head;
+    while (current != NULL) {
+        if (strcmp(current->title, title) == 0) {
+            return current;
+        }
+        current = current->next;
+    }
+    return NULL;
+}
 
-        switch (j)
-        {
-        case 1:
-            printf("Add book details:\n");
-            char title[200], authors_name[50];
-            int quantity;
-            printf("Enter the book name: ");
-            scanf("%s", title);
-            printf("Enter author name: ");
-            scanf("%s", authors_name);
-            printf("Enter quantity: ");
-            scanf("%d", &quantity);
-            add_book(&head, title, authors_name, quantity);
-            break;
+void main_menu(struct library **head) {
+    int choice;
+    while (1) {
+        printf("\n--- LIBRARY MANAGEMENT SYSTEM ---\n");
+        printf("1. Add New Book\n");
+        printf("2. Display Books\n");
+        printf("3. Search Book by Title\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
 
-        case 2:
-            display_books(head,title,authors_name);
-            break;
+        switch (choice) {
+            case 1:
+                {
+                    int  quantity;
+                    char title[100], author[100];
 
-        case 3:
-             printf("%d Total number of books in the library are \n:");
-            break;
-
-        case 4:
-            exit(0);
-
-        default:
-            printf("Invalid number entered\n");
+                    printf("Enter Book Title: ");
+                    scanf(" %s", title);
+                    printf("Enter Book Author: ");
+                    scanf(" %s", author);
+                    printf("Enter Book Quantity: ");
+                    scanf("%d", &quantity);
+                    add_book(head,  title, author, quantity);
+                }
+                break;
+            case 2:
+                display_books(*head);
+                break;
+            case 3:
+                {
+                    char title[100];
+                    printf("Enter Book Title to Search: ");
+                    scanf(" %s", title);
+                    struct library*book = search_book_by_title(*head, title);
+                    if (book != NULL) {
+                        printf(" Title: %s | Author: %s | Quantity: %d\n",  book->title, book->author, book->quantity);
+                    } else {
+                        printf("Book not found.\n");
+                    }
+                }
+                break;
+            case 4:
+                exit(0);
+            default:
+                printf("Invalid choice! Please try again.\n");
         }
     }
+}
 
+int main() {
+    struct library *head = NULL;
+    main_menu(&head);
     return 0;
 }
