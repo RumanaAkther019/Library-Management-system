@@ -83,6 +83,9 @@ int admin_login() {
     char username[100];
     char password[100];
 
+   printf("\n--------Welcome to Library Managment Project--------\n");
+   printf(" you can login the account\n");
+   printf("\n");
     printf("Enter admin username: ");
     scanf(" %s", username);
     printf("Enter admin password: ");
